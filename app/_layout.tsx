@@ -10,9 +10,11 @@ export default function Layout() {
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
-        fontFamily: 'Fredoka-Regular',
+          fontFamily: 'Fredoka-Regular',
         },
       }}>
+
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }}/>
     </Stack>
   );
 }
