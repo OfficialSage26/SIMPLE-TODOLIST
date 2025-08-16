@@ -1,3 +1,4 @@
+
 import { Stack } from 'expo-router';
 
 export default function Layout() {
@@ -12,8 +13,6 @@ export default function Layout() {
         fontFamily: 'Fredoka-Regular',
         },
       }}>
-
-      <Stack.Screen name="Home" options={{}}/>
     </Stack>
   );
 }
