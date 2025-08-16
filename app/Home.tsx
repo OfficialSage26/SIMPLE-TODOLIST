@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Animated, FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, Animated, FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import Addbutn from '../components/addbutn';
 import { addTodo, deleteAllComplete, deleteTodo, getTodos, initDB, Todo, toggleTodo } from '../database/TodoDatabase';
 import { useCustomFonts } from '../hooks/useFonts';
@@ -50,15 +50,33 @@ export default function Index() {
   
     const handleDelete = (id: number) => {
       deleteTodo(id, loadTodos);
-      showToast('Task Tossed!');
     };
 
     const handleDeleteAll = () => {
-      deleteAllComplete(() => {
-        loadTodos();
-        showToast('Tasks Tossed!');
-      })
-    }
+      const completedCount = todos.filter(todo => todo.completed === 1).length;
+      if (completedCount === 0) {
+        showToast('No completed tasks to clear!');
+        return;
+      }
+
+      Alert.alert(
+        'Clear Completed Tasks',
+        `Are you sure you want to delete ${completedCount} completed task${completedCount > 1 ? 's' : ''}?`,
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { 
+            text: 'Clear', 
+            style: 'destructive',
+            onPress: () => {
+              deleteAllComplete(() => {
+                loadTodos();
+                showToast(`Cleared ${completedCount} completed task${completedCount > 1 ? 's' : ''}!`);
+              });
+            }
+          }
+        ]
+      );
+    };
   const fontsLoaded = useCustomFonts();
 
   if (!fontsLoaded) {
@@ -86,9 +104,6 @@ export default function Index() {
       onPress={handleAdd}
       />
 
-      <Pressable onPress={() => handleDeleteAll()}>
-        <Text style={styles.deleteButton}>✕</Text>
-      </Pressable>
       <FlatList
         data={todos}
         keyExtractor={(item) => String(item.id)}
@@ -108,6 +123,14 @@ export default function Index() {
           );
         }}
       />
+
+      {todos.some(todo => todo.completed === 1) && (
+        <View style={styles.clearCompletedContainer}>
+          <Pressable style={styles.clearCompletedButton} onPress={handleDeleteAll}>
+            <Text style={styles.clearCompletedText}>🗑️ Clear Completed</Text>
+          </Pressable>
+        </View>
+      )}
 
       {toastVisible && (
         <Animated.View style={[styles.toast, { opacity: toastOpacity }]}>
@@ -174,11 +197,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
   },
+  clearCompletedContainer: {
+    paddingHorizontal: 12,
+    marginBottom: 20,
+  },
+  clearCompletedButton: {
+    backgroundColor: '#FF6B6B',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  clearCompletedText: {
+    color: 'white',
+    fontFamily: 'Fredoka-SemiBold',
+    fontSize: 16,
+  },
   toast: {
     position: 'absolute',
     top: 10,
     right: 12,
-    backgroundColor: 'white',
+    backgroundColor: '#5FC8C8',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 12,
