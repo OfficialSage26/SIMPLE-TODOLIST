@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Alert, Animated, FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import Addbutn from '../components/addbutn';
-import { addTodo, deleteAllComplete, deleteTodo, getTodos, initDB, Todo, toggleTodo } from '../database/TodoDatabase';
-import { useCustomFonts } from '../hooks/useFonts';
+import Addbutn from '../../components/addbutn';
+import { addTodo, deleteAllComplete, deleteTodo, getTodos, initDB, Todo, toggleTodo } from '../../database/TodoDatabase';
+import { useCustomFonts } from '../../hooks/useFonts';
 
 export default function Index() {
 

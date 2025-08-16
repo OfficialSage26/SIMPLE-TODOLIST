@@ -1,5 +1,5 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { SvgUri } from 'react-native-svg';
 
 export default function TabLayout() {
   return (
@@ -26,12 +26,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <SvgUri 
-              uri={require('../../assets/icons/home.svg')} 
-              width={size} 
-              height={size} 
-              fill={color}
-            />
+            <Ionicons name="home" size={size} color={color} />
           ),
         }}
       />
@@ -41,12 +36,7 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <SvgUri 
-              uri={require('../../assets/icons/profile.svg')} 
-              width={size} 
-              height={size} 
-              fill={color}
-            />
+            <Ionicons name="person" size={size} color={color} />
           ),
         }}
       />
@@ -56,12 +46,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ color, size }) => (
-            <SvgUri 
-              uri={require('../../assets/icons/setting-4.svg')} 
-              width={size} 
-              height={size} 
-              fill={color}
-            />
+            <Ionicons name="settings" size={size} color={color} />
           ),
         }}
       />

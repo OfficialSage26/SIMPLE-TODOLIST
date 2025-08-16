@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useCustomFonts } from '../../hooks/useFonts';
 
-export default function Settings() {
+export default function Profile() {
   const fontsLoaded = useCustomFonts();
 
   if (!fontsLoaded) {
@@ -10,7 +10,7 @@ export default function Settings() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Settings</Text>
+      <Text style={styles.title}>Profile</Text>
     </View>
   );
 }
