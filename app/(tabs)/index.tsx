@@ -50,6 +50,7 @@ export default function Index() {
   
     const handleDelete = (id: number) => {
       deleteTodo(id, loadTodos);
+      showToast('Task deleted!');
     };
 
     const handleDeleteAll = () => {
